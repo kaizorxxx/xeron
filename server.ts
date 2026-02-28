@@ -20,7 +20,7 @@ redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 // Supabase Client for Auth Verification
 const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://nfwtvtwsjuezxtajbdor.supabase.co';
-const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_GpAgn_yWu_23B9YRZUvGOA_8Iy_HgtO';
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5md3R2dHdzanVlenh0YWpiZG9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyOTI4MDksImV4cCI6MjA4Nzg2ODgwOX0.uRFVCMJk0BFKcMt-ojSjif2zyad8tfkkSto1SXUzap8';
 const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey);
 
 async function startServer() {
