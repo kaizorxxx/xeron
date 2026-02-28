@@ -13,14 +13,14 @@ app.use(express.json());
 
 // Redis Client
 const redisClient = createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379'
+  url: process.env.REDIS_URL || 'redis-10906.crce194.ap-seast-1-1.ec2.cloud.redislabs.com:10906'
 });
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 // Supabase Client for Auth Verification
-const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://nfwtvtwsjuezxtajbdor.supabase.co';
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_GpAgn_yWu_23B9YRZUvGOA_8Iy_HgtO';
 const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey);
 
 async function startServer() {
