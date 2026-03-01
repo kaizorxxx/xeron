@@ -12,16 +12,29 @@ const PORT = 3000;
 app.use(express.json());
 
 // Redis Client
+let redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+if (redisUrl && !redisUrl.includes('://')) {
+  redisUrl = `redis://${redisUrl}`;
+}
+
 const redisClient = createClient({
-  url: process.env.REDIS_URL || 'redis-10906.crce194.ap-seast-1-1.ec2.cloud.redislabs.com:10906'
+  url: redisUrl
 });
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 // Supabase Client for Auth Verification
-const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://nfwtvtwsjuezxtajbdor.supabase.co';
-const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5md3R2dHdzanVlenh0YWpiZG9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyOTI4MDksImV4cCI6MjA4Nzg2ODgwOX0.uRFVCMJk0BFKcMt-ojSjif2zyad8tfkkSto1SXUzap8';
-const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('CRITICAL ERROR: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be set in environment variables.');
+  // We don't exit here to allow the server to start, but Supabase features will fail.
+}
+
+const supabase = (supabaseUrl && supabaseAnonKey) 
+  ? createSupabaseClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 async function startServer() {
   // Connect to Redis
@@ -40,6 +53,9 @@ async function startServer() {
   
   // Get Balance
   app.get('/api/balance', async (req, res) => {
+    if (!supabase) {
+      return res.status(503).json({ error: 'Supabase service unavailable' });
+    }
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).json({ error: 'Missing authorization header' });
@@ -67,6 +83,9 @@ async function startServer() {
 
   // Initialize Balance (called after signup)
   app.post('/api/balance/init', async (req, res) => {
+    if (!supabase) {
+      return res.status(503).json({ error: 'Supabase service unavailable' });
+    }
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).json({ error: 'Missing authorization header' });
@@ -96,6 +115,9 @@ async function startServer() {
 
   // Deposit (Mock for now, just updates Redis)
   app.post('/api/deposit', async (req, res) => {
+    if (!supabase) {
+      return res.status(503).json({ error: 'Supabase service unavailable' });
+    }
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).json({ error: 'Missing authorization header' });

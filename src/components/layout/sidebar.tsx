@@ -47,12 +47,12 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 glass-panel border-r border-white/10 h-screen fixed left-0 top-0 flex flex-col z-50">
-      <div className="p-6">
-        <h1 className="text-2xl font-bold text-gradient">TRINITY</h1>
+    <aside className="w-72 bg-navy-950/50 backdrop-blur-[20px] border-r border-white/5 h-screen fixed left-0 top-0 flex flex-col z-50">
+      <div className="p-10">
+        <h1 className="text-3xl font-black tracking-tighter text-white">XERON.</h1>
       </div>
       
-      <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
+      <nav className="flex-1 px-6 space-y-3 overflow-y-auto">
         {sidebarItems.map((item) => {
           const isActive = location.pathname === item.href;
           return (
@@ -60,39 +60,39 @@ export function Sidebar() {
               key={item.href}
               to={item.href}
               className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group",
+                "flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group",
                 isActive 
-                  ? "bg-white/10 text-white shadow-lg shadow-primary/10 border border-white/5" 
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
+                  ? "bg-white/10 text-white shadow-xl shadow-primary/10 border border-white/10" 
+                  : "text-slate-500 hover:text-white hover:bg-white/5"
               )}
             >
-              <item.icon className={cn("w-5 h-5", isActive ? "text-secondary" : "text-slate-500 group-hover:text-secondary")} />
-              <span className="font-medium">{item.label}</span>
+              <item.icon className={cn("w-5 h-5", isActive ? "text-primary" : "text-slate-600 group-hover:text-primary")} />
+              <span className="font-bold tracking-tight">{item.label}</span>
             </Link>
           );
         })}
 
         {isAdmin && (
           <Link
-            to="/admin"
+            to="/admin-intelligence"
             className={cn(
-              "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group mt-6 border border-red-500/20 bg-red-500/5 hover:bg-red-500/10",
-              location.pathname === '/admin' ? "bg-red-500/10 text-red-400" : "text-red-400"
+              "flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 group mt-12 border border-primary/20 bg-primary/5 hover:bg-primary/10",
+              location.pathname === '/admin-intelligence' ? "bg-primary/10 text-primary" : "text-primary"
             )}
           >
-            <ShieldAlert className="w-5 h-5 text-red-500" />
-            <span className="font-medium">Admin Control</span>
+            <ShieldAlert className="w-5 h-5 text-primary" />
+            <span className="font-bold tracking-tight">Intelligence Engine</span>
           </Link>
         )}
       </nav>
 
-      <div className="p-4 border-t border-white/10">
+      <div className="p-6 border-t border-white/5">
         <button 
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 w-full text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+          className="flex items-center gap-4 px-6 py-4 w-full text-slate-500 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold"
         >
           <LogOut className="w-5 h-5" />
-          <span className="font-medium">Logout</span>
+          <span>Sign Out</span>
         </button>
       </div>
     </aside>

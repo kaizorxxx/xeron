@@ -20,6 +20,19 @@ export default function Register() {
     setLoading(true);
     setError(null);
 
+    // Client-side validation
+    if (username.length < 3) {
+      setError('Username must be at least 3 characters long');
+      setLoading(false);
+      return;
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      setError('Username can only contain letters, numbers, and underscores');
+      setLoading(false);
+      return;
+    }
+
     try {
       // 1. Sign up with Supabase
       const { data, error: signUpError } = await supabase.auth.signUp({

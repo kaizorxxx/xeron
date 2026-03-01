@@ -21,7 +21,7 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin-intelligence" element={<AdminDashboard />} />
             {/* Redirect root to dashboard */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             {/* Fallback for other sidebar links to dashboard for now */}

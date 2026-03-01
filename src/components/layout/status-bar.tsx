@@ -37,20 +37,20 @@ export function StatusBar() {
   }, []);
 
   return (
-    <header className="h-16 glass-panel border-b border-white/10 fixed top-0 right-0 left-64 z-40 flex items-center justify-end px-8 gap-6">
-      <div className="flex items-center gap-4">
+    <header className="h-20 bg-navy-950/50 backdrop-blur-[20px] border-b border-white/5 fixed top-0 right-0 left-72 z-40 flex items-center justify-end px-12 gap-8">
+      <div className="flex items-center gap-6">
         <div className="text-right">
-          <p className="text-xs text-slate-400 uppercase tracking-wider">Saldo</p>
-          <p className="text-lg font-bold text-white">Rp{balance.toLocaleString('id-ID')}</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Available Funds</p>
+          <p className="text-2xl font-black text-white">Rp{balance.toLocaleString('id-ID')}</p>
         </div>
-        <Button size="sm" className="gap-2 bg-blue-600 hover:bg-blue-700 text-white border-none shadow-blue-500/20">
-          <Plus className="w-4 h-4" />
+        <Button size="sm" className="h-10 px-6 font-bold shadow-blue-500/20">
+          <Plus className="w-4 h-4 mr-2" />
           Deposit
         </Button>
       </div>
-      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary to-primary p-[1px]">
-        <div className="w-full h-full rounded-full bg-navy-950 flex items-center justify-center">
-          <span className="font-bold text-white uppercase">{username.charAt(0)}</span>
+      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary p-[1px]">
+        <div className="w-full h-full rounded-2xl bg-navy-950 flex items-center justify-center">
+          <span className="font-black text-white text-xl uppercase">{username.charAt(0)}</span>
         </div>
       </div>
     </header>
