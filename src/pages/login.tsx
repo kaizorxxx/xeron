@@ -21,10 +21,7 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isConfigured) {
-      setError("Supabase is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.");
-      return;
-    }
+    // In mock mode, we allow login with any credentials
     
     setLoading(true);
     setError(null);
@@ -57,11 +54,11 @@ export default function Login() {
         </CardHeader>
         <CardContent className="space-y-4">
           {!isConfigured && (
-            <div className="flex items-start gap-3 p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-yellow-200 text-sm">
-              <AlertTriangle className="w-5 h-5 shrink-0 text-yellow-500" />
+            <div className="flex items-start gap-3 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-200 text-sm">
+              <AlertTriangle className="w-5 h-5 shrink-0 text-blue-500" />
               <div>
-                <p className="font-bold mb-1">Configuration Missing</p>
-                <p>Supabase environment variables are missing. Authentication will not work until configured.</p>
+                <p className="font-bold mb-1">Demo Mode Active</p>
+                <p>Supabase is not configured. Running in demo mode with mock authentication.</p>
               </div>
             </div>
           )}
