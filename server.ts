@@ -12,7 +12,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // Redis Client
-let redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+let redisUrl = process.env.REDIS_URL || 'redis-10906.crce194.ap-seast-1-1.ec2.cloud.redislabs.com:10906';
 if (redisUrl && !redisUrl.includes('://')) {
   redisUrl = `redis://${redisUrl}`;
 }
