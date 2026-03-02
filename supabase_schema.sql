@@ -6,7 +6,9 @@ create extension if not exists "uuid-ossp";
 create table public.profiles (
   id uuid references auth.users not null primary key,
   username text unique,
+  email text,
   avatar_url text,
+  status text default 'active',
   updated_at timestamp with time zone default timezone('utc'::text, now()),
   
   constraint username_length check (char_length(username) >= 3)
@@ -67,10 +69,11 @@ create or replace function public.handle_new_user()
 returns trigger as $$
 begin
   -- Create profile
-  insert into public.profiles (id, username, avatar_url)
+  insert into public.profiles (id, username, email, avatar_url)
   values (
     new.id, 
     new.raw_user_meta_data->>'username',
+    new.email,
     new.raw_user_meta_data->>'avatar_url'
   );
   

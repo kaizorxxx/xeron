@@ -12,6 +12,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -63,8 +64,8 @@ export default function Register() {
         
         navigate('/dashboard');
       } else {
-        // If email confirmation is required, redirect to login
-        navigate('/login'); 
+        // If email confirmation is required, show success message
+        setSuccess(true);
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred during registration');
@@ -72,6 +73,35 @@ export default function Register() {
       setLoading(false);
     }
   };
+
+  if (success) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6"
+      >
+        <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h2 className="text-3xl font-bold text-white">Check your email</h2>
+        <p className="text-slate-400 max-w-md text-lg">
+          We've sent a confirmation link to <span className="text-white font-semibold">{email}</span>. 
+          Please click the link to verify your account and start using the platform.
+        </p>
+        <div className="pt-6">
+          <Link to="/login">
+            <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/10">
+              Return to Login
+            </Button>
+          </Link>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
