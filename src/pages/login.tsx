@@ -32,7 +32,12 @@ export default function Login() {
     });
 
     if (error) {
-      setError(error.message);
+      // Improve error message for common cases
+      if (error.message === 'Invalid login credentials') {
+        setError('Invalid credentials. Please check your email/password or verify your account.');
+      } else {
+        setError(error.message);
+      }
       setLoading(false);
     } else {
       navigate('/dashboard');

@@ -1,8 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Use placeholders to prevent crash if env vars are missing
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://nfwtvtwsjuezxtajbdor.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5md3R2dHdzanVlenh0YWpiZG9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyOTI4MDksImV4cCI6MjA4Nzg2ODgwOX0.uRFVCMJk0BFKcMt-ojSjif2zyad8tfkkSto1SXUzap8';
+let supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+let supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Fallback to hardcoded values if env vars are missing or placeholders
+if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+  supabaseUrl = 'https://nfwtvtwsjuezxtajbdor.supabase.co';
+}
+
+if (!supabaseAnonKey || supabaseAnonKey.includes('placeholder')) {
+  supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5md3R2dHdzanVlenh0YWpiZG9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyOTI4MDksImV4cCI6MjA4Nzg2ODgwOX0.uRFVCMJk0BFKcMt-ojSjif2zyad8tfkkSto1SXUzap8';
+}
 
 // Check if configured (either via env vars or hardcoded valid values)
 const isConfigured = supabaseUrl !== 'https://placeholder.supabase.co' && supabaseAnonKey !== 'placeholder';
